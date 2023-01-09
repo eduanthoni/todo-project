@@ -1,0 +1,103 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  width: 46rem;
+}
+
+.task_form {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: -1.6875rem;
+}
+
+.task_form input {
+  flex: 1;
+  background: var(--gray-500);
+  color: var(--gray-100);
+  height: 3.375rem;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 0;
+  line-height: 1.4;
+  border: 1px solid var(--gray-700);
+}
+
+.task_form input:focus {
+  outline: 1px solid var(--purple-dark);
+}
+
+.task_form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  height: 3.25rem;
+  background: var(--blue-dark);
+  color: var(--gray-100);
+  border-radius: 8px;
+  line-height: 1.4;
+  padding: 1rem;
+  border: none;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.task_form button svg {
+  color: white;
+}
+
+.task_form button:hover {
+  background: var(--blue);
+  cursor: pointer;
+}
+
+.task_title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 4rem;
+}
+
+.task_header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.task_header span {
+  color: var(--gray-200);
+  background: var(--gray-400);
+  border-radius: 100px;
+  padding: 0.125rem 0.5rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+
+.task_box {
+  margin-top: 1.5rem;
+}
+
+.created_task {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--blue);
+}
+
+.completed_task {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--purple);
+}
+
+
