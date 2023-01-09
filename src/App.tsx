@@ -1,20 +1,26 @@
+//Estilos
 import './global.css';
 import styles from './App.module.css';
 
+//Componentes
 import { Header } from './components/Header';
 import { Item } from './components/Item';
 import { PlusCircle } from 'phosphor-react';
 import { EmptyList } from './components/EmptyList';
+
 import { useState, FormEvent, ChangeEvent } from 'react';
 
 function App() {
+  //Estados
   const [tasks, setTasks] = useState(['']);
   const [newTask, setNewTask] = useState('');
 
+  // Função para capturar a tarefa digitada no input
   function handleNewTask(event: ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value);
   }
 
+  //Função para adicionar uma nova tarefa
   function handleAddTask(event: FormEvent) {
     event.preventDefault();
 
@@ -22,6 +28,7 @@ function App() {
     setNewTask('');
   }
 
+  //Função para deletar a tarefa
   function handleDeleteTask(taskToRemove: string) {
     const taskWithoutDeleted = tasks.filter(task => {
       return task !== taskToRemove 
@@ -62,6 +69,8 @@ function App() {
         </div>
         <div className={styles.task_box}>
           {
+            // Condicional abaixo verifica se há tarefas, se houver mostra as tarefas, senão mostra um componente
+            // que exibe uma mensagem que não há tarefas. 
             tasks.length > 0 ? tasks.map(task => { 
               return <Item onDelete={handleDeleteTask} title={task}/>
             }) : <EmptyList />}
