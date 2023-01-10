@@ -12,7 +12,7 @@ import { useState, FormEvent, ChangeEvent } from 'react';
 
 function App() {
   //Estados
-  const [tasks, setTasks] = useState(['']);
+  const [tasks, setTasks] = useState(Array<string>);
   const [newTask, setNewTask] = useState('');
 
   // Função para capturar a tarefa digitada no input
@@ -37,6 +37,10 @@ function App() {
     setTasks(taskWithoutDeleted);
   }
 
+
+  // variavel controla se o input ta preenchido
+  const isInputEmpty = newTask.length === 0;
+
   return (
     <div className={styles.container}>
       <Header />     
@@ -46,9 +50,11 @@ function App() {
             type="text"
             placeholder='Adicione uma nova tarefa' 
             value={newTask}
-            onChange={handleNewTask}       
+            onChange={handleNewTask}   
+               
           />
-          <button 
+          <button
+            disabled={isInputEmpty} 
             type='submit'
             onClick={handleAddTask}
           >
@@ -64,7 +70,7 @@ function App() {
 
           <div className={styles.task_header}>
             <strong className={styles.completed_task}>Concluidas</strong>
-            <span>0</span>
+            {tasks.length > 0 ? <span>0 de {tasks.length}</span> : <span>0</span>}
           </div>
         </div>
         <div className={styles.task_box}>
@@ -72,7 +78,7 @@ function App() {
             // Condicional abaixo verifica se há tarefas, se houver mostra as tarefas, senão mostra um componente
             // que exibe uma mensagem que não há tarefas. 
             tasks.length > 0 ? tasks.map(task => { 
-              return <Item onDelete={handleDeleteTask} title={task}/>
+              return <Item onDelete={handleDeleteTask} title={task} />
             }) : <EmptyList />}
         </div>
       </div>
