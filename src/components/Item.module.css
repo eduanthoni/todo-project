@@ -53,6 +53,10 @@
   border: 0;
 }
 
+.item_container input[type=checkbox]:checked:hover {
+  background: var(--purple);
+}
+
 .item_container input[type=checkbox]:checked::before {
   content: '✓';
   position: absolute;
