@@ -2,6 +2,8 @@
 import './global.css';
 import styles from './App.module.css';
 
+import uuid from 'react-uuid';
+
 //Componentes
 import { Header } from './components/Header';
 import { Item } from './components/Item';
@@ -10,10 +12,16 @@ import { EmptyList } from './components/EmptyList';
 
 import { useState, FormEvent, ChangeEvent } from 'react';
 
+type Task = {
+  id: string,
+  description: string,
+  isCompleted: boolean
+}
+
 function App() {
   //Estados
-  const [tasks, setTasks] = useState(Array<string>);
-  const [newTask, setNewTask] = useState('');
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [newTask, setNewTask] = useState("");
 
   // Função para capturar a tarefa digitada no input
   function handleNewTask(event: ChangeEvent<HTMLInputElement>) {
@@ -24,19 +32,40 @@ function App() {
   function handleAddTask(event: FormEvent) {
     event.preventDefault();
 
-    setTasks([...tasks, newTask]);
+    setTasks([...tasks, {
+      id: uuid(),
+      description: newTask,
+      isCompleted: false
+    }]);
     setNewTask('');
   }
 
   //Função para deletar a tarefa
-  function handleDeleteTask(taskToRemove: string) {
+  function handleDeleteTask(id: string) {
+
     const taskWithoutDeleted = tasks.filter(task => {
-      return task !== taskToRemove 
+      return task.id !== id;
     })
 
     setTasks(taskWithoutDeleted);
   }
 
+  function handleToggleTask(id: string) {
+    const withCompletedTask = tasks.map(task => {
+      if(task.id === id) {
+        task.isCompleted = !task.isCompleted;
+      }
+
+      return task;
+    });
+
+    setTasks(withCompletedTask);
+  }
+
+  // Retorna todas as tarefas completadas
+  const completedTasks = tasks.filter(task => {
+    return task.isCompleted === true;
+  });
 
   // variavel controla se o input ta preenchido
   const isInputEmpty = newTask.length === 0;
@@ -70,7 +99,7 @@ function App() {
 
           <div className={styles.task_header}>
             <strong className={styles.completed_task}>Concluidas</strong>
-            {tasks.length > 0 ? <span>0 de {tasks.length}</span> : <span>0</span>}
+            {tasks.length > 0 ? <span>{completedTasks.length} de {tasks.length}</span> : <span>0</span>}
           </div>
         </div>
         <div className={styles.task_box}>
@@ -78,8 +107,8 @@ function App() {
             // Condicional abaixo verifica se há tarefas, se houver mostra as tarefas, senão mostra um componente
             // que exibe uma mensagem que não há tarefas. 
             tasks.length > 0 ? tasks.map(task => { 
-              return <Item onDelete={handleDeleteTask} title={task} />
-            }) : <EmptyList />}
+              return <Item onDelete={handleDeleteTask} task={task} onCheck={handleToggleTask}/>
+            },) : <EmptyList />}
         </div>
       </div>
     </div>
