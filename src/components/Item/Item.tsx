@@ -2,7 +2,6 @@ import { Trash } from 'phosphor-react';
 import { ChangeEvent, useState } from 'react';
 import style from './Item.module.css';
 
-
 //Propriedades recebidas da tela principal
 type Task = {
   id: string,

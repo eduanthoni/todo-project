@@ -5,10 +5,10 @@ import styles from './App.module.css';
 import uuid from 'react-uuid';
 
 //Componentes
-import { Header } from './components/Header';
-import { Item } from './components/Item';
+import { Header } from './components/Header/Header';
+import { Item } from './components/Item/Item';
 import { PlusCircle } from 'phosphor-react';
-import { EmptyList } from './components/EmptyList';
+import { EmptyList } from './components/EmptyList/EmptyList';
 
 import { useState, FormEvent, ChangeEvent } from 'react';
 
